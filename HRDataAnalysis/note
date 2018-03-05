@@ -1,0 +1,19 @@
+df.ix[10:11, ['last_evaluation']]
+df.columns
+df.drop(df.columns[[1, 2]], axis=1).head()
+
+df.isnull().any()
+
+df.sort_values('last_evaluation').head()
+
+df.loc[0:2, ['satisfaction_level', 'last_evaluation']]
+
+plt.show(leave_summary_mean.plot(kind='bar'))
+
+x = np.arange(0, 5, 0.1)
+y = np.sin(x)
+plt.plot(x, y)
+plt.show()
+
+leave_summary = df.groupby('salary')
+print(leave_summary.mean().loc[:, ['satisfaction_level', 'time_spend_company', 'left', 'promotion_last_5years']])

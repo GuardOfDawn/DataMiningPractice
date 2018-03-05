@@ -1,0 +1,74 @@
+satisfaction_level split:
+0.791837041656
+Add split 0.47
+E is 0.599257
+Add split 0.12
+E is 0.549001
+Add split 0.36
+E is 0.466047
+Add split 0.72
+E is 0.438012
+Add split 0.93
+E is 0.413353
+Split of satisfaction_level
+[0.09, 0.12, 0.36, 0.47, 0.72, 0.93, 2.0]
+
+last_evaluation split:
+0.791837041656
+Add split 0.58
+E is 0.764234
+Add split 0.77
+E is 0.693709
+Add split 0.45
+E is 0.672190
+Current split 0.48
+E is 0.664361
+Stop
+[0.36, 0.45, 0.58, 0.77, 2.0]
+
+number_project split:
+0.791837041656
+Add split 3
+E is 0.678934
+Add split 6
+E is 0.582195
+Current split 4
+E is 0.554317
+Stop
+Split of number_project
+[2, 3, 6, 8]
+
+average_montly_hours split:
+0.791837041656
+Add split 288
+E is 0.745121
+Add split 161
+E is 0.712501
+Add split 217
+E is 0.652101
+Add split 126
+E is 0.629393
+Current split 275
+E is 0.622018
+Stop
+Split of average_montly_hours
+[96, 126, 161, 217, 288, 311]
+
+time_spend_company split:
+0.791837041656
+Add split 3
+E is 0.716020
+Add split 7
+E is 0.696149
+Current split 4
+E is 0.680477
+Stop
+Split of time_spend_company
+[2, 3, 7, 11]
+
+
+KMeans split of satisfaction:
+k=3
+0.35,0.68(<=,<)
+k=4
+0.31,0.57,0.79(<=,<)

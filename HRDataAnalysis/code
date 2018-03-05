@@ -1,0 +1,93 @@
+df = pd.read_csv('F:\zhangyi\course\data mining\HR_comma_sep.csv')
+corr = df.corr()
+plt.show(sns.heatmap(corr))
+
+leave_summary_mean = df.groupby('left').mean().loc[:, ['promotion_last_5years']]
+print(leave_summary_mean)
+plt.show(leave_summary_mean.plot(kind='bar'))
+
+leave_summary_mean = df.groupby('left').mean().loc[:, ['satisfaction_level']]
+print(leave_summary_mean)
+plt.show(leave_summary_mean.plot(kind='bar'))
+
+leave_summary_mean = df.groupby('salary').mean().loc[:, ['left']]
+print(leave_summary_mean)
+plt.show(leave_summary_mean.plot(kind='bar'))
+
+leave_summary_mean = df.groupby('left').mean().loc[:, ['average_montly_hours']]
+print(leave_summary_mean)
+plt.show(leave_summary_mean.plot(kind='bar'))
+
+
+fig = plt.figure(figsize=(15, 4),)
+ax = sns.kdeplot(df.loc[(df['left'] == 0), 'last_evaluation'], color='b', shade=True, clip=[0.36, 1], label='no left')
+ax = sns.kdeplot(df.loc[(df['left'] == 1), 'last_evaluation'], color='r', shade=True, clip=[0.45, 1], label='left')
+ax.set(xlabel='Employee Evaluation', ylabel='Frequency')
+plt.title('Employee Evaluation Distribution - left V.S. No left')
+plt.show(ax)
+
+
+
+leave_summary_mean = df.loc[(df['left'] == 1), ['last_evaluation', 'left']].groupby('last_evaluation').count()
+leave_summary_mean['left'] = leave_summary_mean['left']/leave_summary_mean['left'].sum()
+stay_summary_mean = df.loc[(df['left'] == 0), ['last_evaluation', 'left']].groupby('last_evaluation').count()
+stay_summary_mean['left'] = stay_summary_mean['left']/stay_summary_mean['left'].sum()
+plt.show(leave_summary_mean.plot(kind='bar'))
+plt.show(stay_summary_mean.plot(kind='bar'))
+
+leave_summary_mean = df.loc[(df['left'] == 1), ['satisfaction_level', 'left']].groupby('satisfaction_level').count()
+leave_summary_mean['left'] = leave_summary_mean['left']/leave_summary_mean['left'].sum()
+stay_summary_mean = df.loc[(df['left'] == 0), ['satisfaction_level', 'left']].groupby('satisfaction_level').count()
+stay_summary_mean['left'] = stay_summary_mean['left']/stay_summary_mean['left'].sum()
+plt.show(leave_summary_mean.plot(kind='bar'))
+plt.show(stay_summary_mean.plot(kind='bar'))
+
+
+leave_evaluation = df.loc[(df['left'] == 1), ['last_evaluation']]
+stay_evaluation = df.loc[(df['left'] == 0), ['last_evaluation']]
+bins_leave = int((leave_evaluation.max()-leave_evaluation.min())[0]*100+1)
+bins_stay = int((stay_evaluation.max()-stay_evaluation.min())[0]*100+1)
+fig = plt.figure(figsize=(15, 4),)
+ax = sns.distplot(df.loc[(df['left'] == 0), ['last_evaluation']], bins=bins_stay, color='b', label='no left', kde=False)
+ax = sns.distplot(df.loc[(df['left'] == 1), ['last_evaluation']], bins=bins_leave, color='r', label='left', kde=False)
+ax.set(xlabel='Employee Evaluation', ylabel='Frequency')
+plt.title('Employee Evaluation Distribution - left V.S. No left')
+plt.show(ax)
+
+
+leave_workingHours = df.loc[(df['left'] == 1), ['average_montly_hours']]
+stay_workingHours = df.loc[(df['left'] == 0), ['average_montly_hours']]
+bins_leave = int((leave_workingHours.max()-leave_workingHours.min())[0]+1)
+bins_stay = int((leave_workingHours.max()-leave_workingHours.min())[0]+1)
+fig = plt.figure(figsize=(15, 4),)
+ax = sns.distplot(df.loc[(df['left'] == 0), ['average_montly_hours']], bins=bins_stay, color='b', label='no left', kde=False)
+ax = sns.distplot(df.loc[(df['left'] == 1), ['average_montly_hours']], bins=bins_leave, color='r', label='left', kde=False)
+ax.set(xlabel='average_monthly_hours', ylabel='Frequency')
+plt.title('average_monthly_hours Distribution - left V.S. No left')
+plt.show(ax)
+
+
+leave_satisfaction = df.loc[(df['left'] == 1), ['satisfaction_level']]
+stay_satisfaction = df.loc[(df['left'] == 0), ['satisfaction_level']]
+bins_leave = int((leave_satisfaction.max()-leave_satisfaction.min())[0]*100+1)
+bins_stay = int((stay_satisfaction.max()-stay_satisfaction.min())[0]*100+1)
+fig = plt.figure(figsize=(15, 4),)
+ax = sns.distplot(df.loc[(df['left'] == 0), ['satisfaction_level']], bins=bins_stay, color='b', label='no left', kde=False)
+ax = sns.distplot(df.loc[(df['left'] == 1), ['satisfaction_level']], bins=bins_leave, color='r', label='left', kde=False)
+ax.set(xlabel='satisfaction_level', ylabel='Frequency')
+plt.title('satisfaction_level Distribution - left V.S. No left')
+plt.show(ax)
+
+
+x = df.loc[(df['left'] == 1), 'average_montly_hours']
+y = df.loc[(df['left'] == 1), 'satisfaction_level']
+plt.figure('test')
+plt.plot(x, y, '.')
+plt.show()
+
+
+df_left = df.loc[df['left'] == 1]
+sns.lmplot(x='average_montly_hours', y='satisfaction_level', data=df_left,
+           fit_reg=False,  # No regression line
+           hue='sales')   # Color by evolution stage
+plt.show(sns)
